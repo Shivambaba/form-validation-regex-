@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allison&display=swap" rel="stylesheet">
+
+  
+  <script src="jquery.js"></script>
+
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Form Validation</h1>
+    <form action="ss.html" target=" _blank" method="POST" onsubmit="return validate()" id="form_submit">
+
+      <label for="name">Name :</label><br />
+      <input type="text" id="name" required="" />
+      <span class="name_error"></span><br />
+
+
+
+      <label for="password">Password :</label><br />
+      <input type="password" id="password" required="" />
+      <span class="password_error"></span><br />
+
+
+
+      <label for="cpassword">Confirm Password :</label><br />
+      <input type="password" id="cpassword" required="" />
+      <span class="cpassword_error"></span><br />
+
+
+
+      <label for="mobile">Mobile no :</label><br />
+      <input type="text" id="mobile" required="" />
+      <span class="mobile_error"></span><br />
+
+
+
+      <label for="email"> Email id :</label><br />
+      <input type="text" id="email" required="" />
+      <span class="email_error"></span><br />
+
+
+      <input type="submit" class="submit" />
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      var nerror = false;
+      var perror = false;
+      var cperror = false;
+      var merror = false;
+      var eerror = false;
+
+
+      $("#name").focusout(function () {
+        checkname();
+      })
+      $("#password").focusout(function() {
+        //alert("hello");
+        checkpassword();
+      });
+      $("#cpassword").focusout(function () {
+        //alert("hello");
+        checkcpassword();
+      });
+      $("#mobile").focusout(function () {
+        //alert("hello");
+        checkmobile();
+      });
+      $("#email").focusout(function () {
+        //alert("hello");
+        checkemail();
+      });
+
+      function checkname() {
+        var nameval = document.getElementById("name").value;
+
+
+        var pattern = /^[a-zA-Z0-9 ]{3,20}$/;
+        if (pattern.test(nameval) && nameval !== "") {
+          $(".name_error").html("");
+
+        } else {
+
+          $(".name_error").html("** invalid username");
+          nerror = true;
+          // alert("error");
+        }
+      }
+
+      function checkpassword() {
+        var passwordval = document.getElementById("password").value;
+
+        var pattern = /^[A-Za-z0-9]{8,}$/;
+        if (pattern.test(passwordval) && passwordval !== "") {
+          $(".password_error").html("");
+        } else {
+          $(".password_error").html("** invalid password");
+          perror = true;
+        }
+      }
+
+      function checkcpassword() {
+        var passwordval = document.getElementById("password").value;
+        var cpasswordval = document.getElementById("cpassword").value;
+
+        if (cpasswordval == passwordval) {
+          $(".cpassword_error").html("");
+        } else {
+          $(".cpassword_error").html("**not matched");
+          cperror = true;
+        }
+      }
+
+      function checkmobile() {
+        var mobileval = document.getElementById("mobile").value;
+
+        var pattern = /^[0-9]{10}$/;
+        if (pattern.test(mobileval) && mobileval !== "") {
+          $(".mobile_error").html("");
+        } else {
+          $(".mobile_error").html("** invalid mobile");
+          merror = true;
+        }
+      }
+
+      function checkemail() {
+        var emailval = document.getElementById("email").value;
+
+        var pattern = /^([a-zA-Z0-9]+)@([a-zA-Z]+)\.([a-z]{2,4})/;
+        if (pattern.test(emailval) && emailval !== "") {
+          $(".email_error").html("");
+        } else {
+          $(".email_error").html("** invalid email");
+          eerror = true;
+        }
+      }
+
+      // validate
+      //
+      $("#form_submit").submit(function(){
+     
+
+         nerror = false; // var nerror ka error aa raha tha 2 baar variable define kiya tha skope remember
+         perror = false;
+         cperror = false;
+         merror = false;
+         eerror = false;
+        checkcpassword();
+        checkemail();
+        checkmobile();
+        checkname();
+        checkpassword();
+
+        if (nerror === false && perror === false && merror === false && cperror === false && eerror === false) {
+          alert("registered successfull")
+          return true;
+
+        } else {
+          alert("fill the form correctly");
+          return false;
+        }
+
+      });
+
+
+    });
+  </script>
+</body>
+
+</html>
